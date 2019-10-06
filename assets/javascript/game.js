@@ -5,10 +5,12 @@ var wordlist = ['tiger', 'lion', 'eagle', 'bear', 'monkey', 'lemur', 'snake', 'f
 var randomNum = Math.floor(Math.random() * wordlist.length);
 
 // Variables
+// add guesses left and game reset, win & lose
 var choosenWord = wordlist[randomNum];
 var underScore = [];
 var rightLetter = [];
 var wrongLetter = [];
+var guesses = 10;
 
 
 // Dom manipulation
@@ -47,13 +49,24 @@ document.addEventListener('keypress', (event) => {
         // Checks to see if guesses match answer
         if (underScore.join('') == choosenWord) {
             alert('Congratulations You Win!!!');
-        }
+            randomNum = Math.floor(Math.random() * wordlist.length);
+            choosenWord = wordlist[randomNum];
+            guesses = 10;
 
+        }
     }
     else {
         //  If wrong push to wrong array
         wrongLetter.push(keyword);
         answerWrong[0].innerHTML = wrongLetter;
+
+    }
+    if (guesses < 1) {
+        wrongLetter++;
+        alert('You Lose!!!');
+        randomNum = Math.floor(Math.random() * wordlist.length);
+        choosenWord = wordlist[randomNum];
+        guesses = 10;
     }
 
 
